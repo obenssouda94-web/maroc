@@ -1,0 +1,2 @@
+# Keep this directory in the repository so the dev server serves uploads
+# immediately. Uploaded files themselves are gitignored.

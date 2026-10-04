@@ -159,6 +159,7 @@ const fr: Dictionary = {
     ai: "Maroc IA",
     search: "Rechercher",
     admin: "Administration",
+    tourism: "Tourisme",
   },
   home: {
     heroTitle: "Maroc",
@@ -290,6 +291,20 @@ const fr: Dictionary = {
     sourcesTitle: "Registre des sources",
     sourcesSubtitle:
       "Chaque fait de cette plateforme renvoie à une source enregistrée.",
+    anthemListenTitle: "Écouter l'hymne",
+    anthemListenHint: "Enregistrement instrumental de l'Hymne Chérifien.",
+    tourismTitle: "Tourisme au Maroc",
+    tourismSubtitle:
+      "La porte d'entrée officielle du Royaume — guides de destination, informations voyage et conseils pratiques.",
+  },
+  tourism: {
+    officeTitle: "Office National Marocain du Tourisme",
+    officeRole: "L'autorité touristique officielle du Royaume du Maroc",
+    officeDescription:
+      "L'Office National Marocain du Tourisme (ONMT) promeut le Maroc comme destination et publie l'information voyage officielle, les guides de destination et les conseils pratiques pour les visiteurs.",
+    officialSite: "Site officiel",
+    planTitle: "Préparez votre voyage",
+    planHint: "Continuez à explorer le Royaume à travers les sections de la plateforme.",
   },
   map: {
     layers: "Calques de la carte",

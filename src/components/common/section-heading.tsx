@@ -66,7 +66,9 @@ export function PageHeader({
         className,
       )}
     >
-      <div className="container-page py-12 sm:py-16 lg:py-20">
+      <div className="pointer-events-none absolute -end-20 -top-24 h-72 w-72 rounded-full bg-[var(--color-moroccan-red)]/[0.07] blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -start-20 bottom-0 h-64 w-64 rounded-full bg-[var(--color-moroccan-green)]/[0.06] blur-3xl" aria-hidden />
+      <div className="container-page relative py-12 sm:py-16 lg:py-20">
         {breadcrumbs && breadcrumbs.length > 0 && (
           <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[var(--color-muted)]">

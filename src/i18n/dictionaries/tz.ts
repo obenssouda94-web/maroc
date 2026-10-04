@@ -160,6 +160,7 @@ const tz: Dictionary = {
     ai: "ⵍⵎⵖⵔⵉⴱ IA",
     search: "ⴰⵔⵣⵣⵓ",
     admin: "ⵜⴰⵏⴰⴱⴰⵍⵜ",
+    tourism: "Tourism",
   },
   home: {
     heroTitle: "ⵍⵎⵖⵔⵉⴱ",
@@ -284,6 +285,20 @@ const tz: Dictionary = {
       "ⵔⵣⵓ ⴰⵎⵣⵡⴰⵔⵓ, ⵜⵉⵎⵣⵉⵖⵉⵏ, ⵜⵉⵎⵏⴰⴹⵉⵏ, ⵉⵙⴻⵇⵇⴰⵏⴻⵏ, ⵜⵉⵎⴻⵙⵙⵍⴰⵍⵉⵏ, ⵜⴰⵎⴻⵍⵜ, ⵜⴰⵎⴰⵣⵉⵖⵜ, ⵉⵎⴰⵣⵉⵖⵉⵏ ⴷ ⵉⵎⴻⵏⵉⵡⴻⵏ.",
     sourcesTitle: "ⵓⵙⴰⵍⵍⵓⵍ ⵏ ⵉⵙⴰⵍⴻⵏ",
     sourcesSubtitle: "ⴰⵙⴻⵏⵉ ⵏ ⵍⵎⴰⵕⵕⴰ ⵉⵙⵙⴻⵏⴻⴳ ⵉⴷⵉⵏ ⴰⵙⴰⵍ ⵉⵙⵉⵏⴻⴷⵏ.",
+    anthemListenTitle: "Listen to the anthem",
+    anthemListenHint: "Instrumental recording of the Hymne Chérifien.",
+    tourismTitle: "Tourism in Morocco",
+    tourismSubtitle:
+      "The official gateway to the Kingdom — destination guides, travel information and practical advice.",
+  },
+  tourism: {
+    officeTitle: "Moroccan National Tourist Office",
+    officeRole: "The official tourism authority of the Kingdom of Morocco",
+    officeDescription:
+      "The Office National Marocain du Tourisme (ONMT) promotes Morocco as a destination and publishes the official travel information, destination guides and practical advice for visitors.",
+    officialSite: "Official website",
+    planTitle: "Plan your trip",
+    planHint: "Keep exploring the Kingdom through the platform's own sections.",
   },
   map: {
     layers: "ⵜⵉⵍⴻⵙⵉⵏ ⵏ ⵜⴰⵍⴻⵍⵜ",

@@ -275,6 +275,17 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 2l5.4 13.9L44 18l-11.5 8.1L36.5 42 24 33.4 11.5 42l3.9-15.9L4 18l14.6-2.1z' fill='%23c9a227' fill-opacity='0.09'/%3E%3C/svg%3E");
   }
 
+  /* Lighten the ornaments in dark mode so the motifs stay visible on dark grounds */
+  .dark .bg-zellige {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23e8cf6b' stroke-opacity='0.14' stroke-width='1.2'%3E%3Cpath d='M32 2l8 8-8 8-8-8z'/%3E%3Cpath d='M32 46l8 8-8 8-8-8z'/%3E%3Cpath d='M2 32l8-8 8 8-8 8z'/%3E%3Cpath d='M46 32l8-8 8 8-8 8z'/%3E%3Cpath d='M12 12l6 6M52 52l-6-6M52 12l-6 6M12 52l6-6'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .dark .bg-zellige-dense {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23e8cf6b' stroke-opacity='0.16' stroke-width='1'%3E%3Cpath d='M60 4l14 14-14 14-14-14z'/%3E%3Cpath d='M60 88l14 14-14 14-14-14z'/%3E%3Cpath d='M4 60l14-14 14 14-14 14z'/%3E%3Cpath d='M88 60l14-14 14 14-14 14z'/%3E%3Cpath d='M24 24l12 12M96 96l-12-12M96 24l-12 12M24 96l12-12'/%3E%3Ccircle cx='60' cy='60' r='10'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .dark .bg-star-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 2l5.4 13.9L44 18l-11.5 8.1L36.5 42 24 33.4 11.5 42l3.9-15.9L4 18l14.6-2.1z' fill='%23e8cf6b' fill-opacity='0.14'/%3E%3C/svg%3E");
+  }
+
   .divider-zellige {
     height: 1px;
     background: linear-gradient(

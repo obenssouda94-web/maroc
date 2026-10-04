@@ -69,6 +69,7 @@ const symbols: NationalSymbol[] = [
       es: "El Himno Chérifien era originalmente una marcha militar compuesta en 1952 por Léo Morgan, director de la banda de las Fuerzas Armadas Reales Marroquíes, y permaneció sin letra durante varios años. La letra árabe fue escrita tras la independencia por Ali Squalli Houssaini y Youssef Diouri.\n\nEl himno saluda al Rey, a la patria y a los valores de la fe y la libertad; se interpreta en las ceremonias oficiales, antes de los encuentros deportivos internacionales y en las escuelas. La letra completa está protegida por derechos de autor y por ello no se reproduce aquí; solo se ofrecen los metadatos oficiales y el contexto histórico.",
     },
     date: "1952",
+    audioUrl: "/audio/hymne-cherifien.mp3",
     sourceUrl: "https://www.maroc.ma",
     verifiedAt: "2026-10-03",
     publishedAt: "2025-05-01",

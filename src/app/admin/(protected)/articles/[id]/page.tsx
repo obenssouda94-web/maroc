@@ -39,6 +39,7 @@ export default async function EditArticlePage({
             category: article.category,
             status: article.status,
             sourceUrl: article.sourceUrl,
+            featuredImage: article.featuredImage,
             tags: article.tags,
           }}
         />

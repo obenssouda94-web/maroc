@@ -129,7 +129,7 @@ export default async function LocaleLayout({
       <body
         className={`${plusJakarta.variable} ${playfair.variable} ${naskh.variable} ${tifinagh.variable} antialiased`}
       >
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <a
             href="#main-content"
             className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:start-4 focus-visible:top-4 focus-visible:z-[100] focus-visible:rounded-lg focus-visible:bg-[var(--color-moroccan-red)] focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-white"

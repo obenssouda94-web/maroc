@@ -16,6 +16,7 @@ import {
   Flag,
   Sparkles,
   LayoutGrid,
+  Plane,
   type LucideIcon,
 } from "lucide-react";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -44,6 +45,7 @@ export function getNavItems(locale: Locale, dict: Dictionary): NavItem[] {
     { href: "/heritage", label: t.heritage, icon: Castle, group: "discover" },
     { href: "/weather", label: t.weather, icon: SunMedium, group: "experience" },
     { href: "/events", label: t.events, icon: CalendarDays, group: "experience" },
+    { href: "/tourism", label: t.tourism, icon: Plane, group: "experience" },
     { href: "/symbols", label: t.symbols, icon: Flag, group: "discover" },
     { href: "/ai", label: t.ai, icon: Sparkles, group: "experience" },
   ];
@@ -88,6 +90,7 @@ export function getFooterLinks(locale: Locale, dict: Dictionary) {
       make("/about", dict.common.about),
       make("/weather", t.weather),
       make("/events", t.events),
+      make("/tourism", t.tourism),
       make("/ai", t.ai),
       make("/search", t.search),
     ],

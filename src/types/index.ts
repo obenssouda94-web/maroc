@@ -282,6 +282,8 @@ export interface NationalSymbol extends Verifiable {
   summary: LocalizedString;
   content?: LocalizedString;
   date?: string;
+  /** Optional audio asset path (e.g. an instrumental recording of the anthem). */
+  audioUrl?: string;
 }
 
 // --- Search ------------------------------------------------------------------

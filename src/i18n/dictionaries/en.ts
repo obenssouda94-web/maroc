@@ -157,6 +157,7 @@ const en = {
     ai: "Morocco AI",
     search: "Search",
     admin: "Admin",
+    tourism: "Tourism",
   },
   home: {
     heroTitle: "Morocco",
@@ -287,6 +288,20 @@ const en = {
     sourcesTitle: "Source registry",
     sourcesSubtitle:
       "Every fact on this platform traces back to a registered source.",
+    anthemListenTitle: "Listen to the anthem",
+    anthemListenHint: "Instrumental recording of the Hymne Chérifien.",
+    tourismTitle: "Tourism in Morocco",
+    tourismSubtitle:
+      "The official gateway to the Kingdom — destination guides, travel information and practical advice.",
+  },
+  tourism: {
+    officeTitle: "Moroccan National Tourist Office",
+    officeRole: "The official tourism authority of the Kingdom of Morocco",
+    officeDescription:
+      "The Office National Marocain du Tourisme (ONMT) promotes Morocco as a destination and publishes the official travel information, destination guides and practical advice for visitors.",
+    officialSite: "Official website",
+    planTitle: "Plan your trip",
+    planHint: "Keep exploring the Kingdom through the platform's own sections.",
   },
   map: {
     layers: "Map layers",

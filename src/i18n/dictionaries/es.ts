@@ -157,6 +157,7 @@ const es: Dictionary = {
     ai: "Marruecos IA",
     search: "Buscar",
     admin: "Administración",
+    tourism: "Turismo",
   },
   home: {
     heroTitle: "Marruecos",
@@ -282,6 +283,20 @@ const es: Dictionary = {
       "Busca historia, ciudades, regiones, leyes, instituciones, cocina, cultura, monumentos y eventos.",
     sourcesTitle: "Registro de fuentes",
     sourcesSubtitle: "Cada dato de esta plataforma se remonta a una fuente registrada.",
+    anthemListenTitle: "Escuchar el himno",
+    anthemListenHint: "Grabación instrumental del Himno Chérifien.",
+    tourismTitle: "Turismo en Marruecos",
+    tourismSubtitle:
+      "El portal oficial del Reino — guías de destino, información de viaje y consejos prácticos.",
+  },
+  tourism: {
+    officeTitle: "Oficina Nacional Marroquí de Turismo",
+    officeRole: "La autoridad turística oficial del Reino de Marruecos",
+    officeDescription:
+      "La Oficina Nacional Marroquí de Turismo (ONMT) promueve Marruecos como destino y publica la información de viaje oficial, las guías de destino y los consejos prácticos para los visitantes.",
+    officialSite: "Sitio oficial",
+    planTitle: "Planifica tu viaje",
+    planHint: "Sigue explorando el Reino a través de las secciones de la plataforma.",
   },
   map: {
     layers: "Capas del mapa",

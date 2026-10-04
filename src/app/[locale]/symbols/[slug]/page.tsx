@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { symbolsList } from "@/data/symbols";
 import { PageHeader } from "@/components/common/section-heading";
 import { VerificationBadge } from "@/components/common/verification-badge";
+import { AudioPlayer } from "@/components/content/audio-player";
 import { localeBundle, resolveLocale } from "@/lib/content";
 import { localized } from "@/lib/utils";
 
@@ -73,6 +74,15 @@ export default async function SymbolDetailPage({
           {symbol.content && (
             <div className="prose-moroc mt-8">
               <p className="whitespace-pre-line">{localized(symbol.content, locale)}</p>
+            </div>
+          )}
+          {symbol.audioUrl && (
+            <div className="mt-8">
+              <AudioPlayer
+                src={symbol.audioUrl}
+                label={dict.page.anthemListenTitle}
+                hint={dict.page.anthemListenHint}
+              />
             </div>
           )}
         </div>

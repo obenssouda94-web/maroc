@@ -30,6 +30,7 @@ const articleSchema = z.object({
   category: z.enum(CONTENT_TYPES),
   status: z.enum(STATUSES),
   sourceUrl: z.string().url().optional().or(z.literal("")),
+  featuredImage: z.string().max(2048).optional().or(z.literal("")),
   tags: z.string().optional().or(z.literal("")),
   localized: z.string().min(2),
 });
@@ -81,6 +82,7 @@ interface SaveInput {
   category: z.infer<typeof articleSchema>["category"];
   status: z.infer<typeof articleSchema>["status"];
   sourceUrl?: string;
+  featuredImage?: string;
   tagList: string[];
   authorId: string;
   publishedAt: Date | null | undefined;
@@ -108,6 +110,7 @@ async function saveArticle(id: string | null, input: SaveInput): Promise<string>
         category: input.category,
         status: input.status,
         sourceUrl: input.sourceUrl || undefined,
+        featuredImage: input.featuredImage,
         publishedAt: nowPublishing ? new Date() : current.publishedAt,
         tags: input.tagList,
       },
@@ -126,6 +129,7 @@ async function saveArticle(id: string | null, input: SaveInput): Promise<string>
       status: input.status,
       authorId: input.authorId,
       sourceUrl: input.sourceUrl || undefined,
+      featuredImage: input.featuredImage || undefined,
       publishedAt: input.status === "published" ? new Date() : undefined,
       tags: input.tagList,
     },
@@ -140,6 +144,7 @@ function parseForm(formData: FormData) {
     category: String(formData.get("category") ?? "article"),
     status: String(formData.get("status") ?? "draft"),
     sourceUrl: String(formData.get("sourceUrl") ?? ""),
+    featuredImage: String(formData.get("featuredImage") ?? ""),
     tags: String(formData.get("tags") ?? ""),
     localized: String(formData.get("localized") ?? "{}"),
   });
@@ -183,6 +188,7 @@ function parseForm(formData: FormData) {
       category: parsed.data.category,
       status: parsed.data.status,
       sourceUrl: parsed.data.sourceUrl,
+      featuredImage: parsed.data.featuredImage,
       tagList,
     },
   };

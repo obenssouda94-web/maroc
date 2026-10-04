@@ -1,11 +1,13 @@
 "use client";
 
-import { useActionState, useEffect, useMemo, useState } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import { ImagePlus, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";
 import { locales, localeLabels } from "@/i18n/config";
 import { cn } from "@/lib/utils";
+import { uploadImage } from "@/lib/actions/uploads";
 import type { Locale } from "@/types";
 import type { ArticleFormState } from "@/lib/actions/articles";
 
@@ -35,6 +37,7 @@ interface ArticleFormProps {
     category: string;
     status: string;
     sourceUrl: string | null;
+    featuredImage?: string | null;
     tags: unknown;
   };
   submitLabel: string;
@@ -72,6 +75,10 @@ export function ArticleForm({ action, article, submitLabel }: ArticleFormProps) 
   const [category, setCategory] = useState(article?.category ?? "article");
   const [status, setStatus] = useState(article?.status ?? "draft");
   const [sourceUrl, setSourceUrl] = useState(article?.sourceUrl ?? "");
+  const [featuredImage, setFeaturedImage] = useState(article?.featuredImage ?? "");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [tags, setTags] = useState<string>(
     Array.isArray(article?.tags) ? (article.tags as string[]).join(", ") : "",
   );
@@ -92,6 +99,24 @@ export function ArticleForm({ action, article, submitLabel }: ArticleFormProps) 
     }));
   }
 
+  async function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setUploadError(null);
+    setUploading(true);
+    try {
+      const result = await uploadImage(file);
+      if (result.error) {
+        setUploadError(result.error);
+      } else if (result.url) {
+        setFeaturedImage(result.url);
+      }
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
   useEffect(() => {
     if (state.message === "article:created" && state.id) {
       router.replace(`/admin/articles/${state.id}`);
@@ -103,6 +128,7 @@ export function ArticleForm({ action, article, submitLabel }: ArticleFormProps) 
   return (
     <form action={formAction} className="space-y-8">
       <input type="hidden" name="localized" value={localizedPayload} />
+      <input type="hidden" name="featuredImage" value={featuredImage} />
 
       {/* Language tabs */}
       <div>
@@ -180,6 +206,86 @@ export function ArticleForm({ action, article, submitLabel }: ArticleFormProps) 
             className="font-mono text-[13px]"
           />
         </div>
+      </div>
+
+      {/* Featured image */}
+      <div className="space-y-3">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-muted)]">
+          Featured image
+        </p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+          {featuredImage ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={featuredImage}
+              alt="Featured image preview"
+              className="h-28 w-full rounded-xl border border-[var(--color-strong-border)] object-cover sm:w-44"
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="flex h-28 w-full flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-[var(--color-strong-border)] bg-[var(--color-surface-2)] text-sm font-medium text-[var(--color-muted)] transition-colors hover:border-[var(--color-moroccan-green)]/60 hover:text-[var(--color-foreground)] disabled:pointer-events-none disabled:opacity-50 sm:w-44"
+            >
+              {uploading ? (
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
+              ) : (
+                <ImagePlus className="h-5 w-5" aria-hidden />
+              )}
+              {uploading ? "Uploading…" : "Upload image"}
+            </button>
+          )}
+          <div className="flex flex-1 flex-col gap-2">
+            <Input
+              value={featuredImage}
+              onChange={(event) => setFeaturedImage(event.target.value)}
+              placeholder="Image URL — https://… or /uploads/…"
+              aria-label="Featured image URL"
+            />
+            <div className="flex flex-wrap gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+              >
+                {uploading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                ) : (
+                  <ImagePlus className="h-4 w-4" aria-hidden />
+                )}
+                {featuredImage ? "Replace file" : "Choose file"}
+              </Button>
+              {featuredImage && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setFeaturedImage("");
+                    setUploadError(null);
+                  }}
+                >
+                  <X className="h-4 w-4" aria-hidden />
+                  Remove
+                </Button>
+              )}
+            </div>
+            <p className="text-xs text-[var(--color-muted)]">
+              JPG, PNG, WebP, GIF or SVG — 5 MB max.
+            </p>
+          </div>
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="sr-only"
+        />
+        {uploadError && <FieldError message={uploadError} />}
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
