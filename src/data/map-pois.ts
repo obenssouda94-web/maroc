@@ -1,0 +1,357 @@
+import type { Coordinates, LocalizedString } from "@/types";
+
+export interface MapPOI {
+  id: string;
+  name: LocalizedString;
+  type: "mountain" | "river" | "beach" | "museum" | "cultural" | "historical";
+  coordinates: Coordinates;
+  city?: string;
+  region?: string;
+  description?: LocalizedString;
+}
+
+const L = (en: string, fr: string, ar: string, es: string): LocalizedString => ({
+  en,
+  fr,
+  ar,
+  tz: en,
+  es,
+});
+
+const mapPOIs: MapPOI[] = [
+  {
+    id: "poi-toubkal",
+    name: L("Toubkal", "Toubkal", "توبقال", "Tubkal"),
+    type: "mountain",
+    coordinates: { lat: 31.0597, lng: -7.9228 },
+    region: "marrakech-safi",
+    description: L(
+      "At 4,167 m, the highest peak in Morocco and North Africa, in the heart of the Toubkal National Park.",
+      "Avec 4 167 m, le plus haut sommet du Maroc et d'Afrique du Nord, au cœur du parc national de Toubkal.",
+      "بارتفاع 4167 م، أعلى قمة في المغرب وشمال إفريقيا، في قلب المنتزه الوطني لتوبقال.",
+      "Con 4.167 m, la cumbre más alta de Marruecos y del norte de África, en el corazón del parque nacional de Tubkal.",
+    ),
+  },
+  {
+    id: "poi-mgoun",
+    name: L("Mgoun", "M'Goun", "مكون", "M'Goun"),
+    type: "mountain",
+    coordinates: { lat: 32.4253, lng: -6.2514 },
+    region: "beni-mellal-khenifra",
+    description: L(
+      "At 4,071 m, the second highest peak in Morocco, dominating the Aït Bouguemez valley.",
+      "Avec 4 071 m, le deuxième plus haut sommet du Maroc, dominant la vallée d'Aït Bouguemez.",
+      "بارتفاع 4071 م، ثاني أعلى قمة في المغرب، تطل على وادي آيت بوكماز.",
+      "Con 4.071 m, la segunda cumbre más alta de Marruecos, dominando el valle de Aït Bouguemez.",
+    ),
+  },
+  {
+    id: "poi-bou-iblane",
+    name: L("Bou Iblane", "Bou Iblane", "بويبلان", "Bu Iblan"),
+    type: "mountain",
+    coordinates: { lat: 33.1767, lng: -5.1739 },
+    region: "fes-meknes",
+    description: L(
+      "At 3,340 m, one of the highest peaks of the Middle Atlas, famous for its cedar and juniper forests.",
+      "Avec 3 340 m, l'un des plus hauts sommets du Moyen Atlas, célèbre pour ses forêts de cèdres et de genévriers.",
+      "بارتفاع 3340 م، من أعلى قمم الأطلس المتوسط، تشتهر بغاباتها من الأرز والعرعر.",
+      "Con 3.340 m, una de las cumbres más altas del Atlas Medio, famosa por sus bosques de cedros y enebros.",
+    ),
+  },
+  {
+    id: "poi-sirwa",
+    name: L("Jebel Sirwa", "Djebel Sirwa", "جبل صرو", "Yebel Sirwa"),
+    type: "mountain",
+    coordinates: { lat: 30.8167, lng: -6.65 },
+    region: "draa-tafilalet",
+    description: L(
+      "A 3,304 m volcanic massif linking the High Atlas and the Anti-Atlas, on the road to Taliouine.",
+      "Un massif volcanique de 3 304 m reliant le Haut Atlas à l'Anti-Atlas, sur la route de Taliouine.",
+      "كتلة بركانية بارتفاع 3304 م تربط الأطلس الكبير بالأطلس الصغير، على طريق تالوين.",
+      "Un macizo volcánico de 3.304 m que une el Alto Atlas con el Anti-Atlas, en la ruta de Taliouine.",
+    ),
+  },
+  {
+    id: "poi-oum-er-rbia",
+    name: L("Oum Er-Rbia", "Oum Er-Rbia", "وادي أم الربيع", "Umm Er-Rbia"),
+    type: "river",
+    coordinates: { lat: 32.4167, lng: -6.0 },
+    region: "beni-mellal-khenifra",
+    description: L(
+      "At 555 km, the second longest river in Morocco; it rises in the Middle Atlas and waters the Tadla before reaching the Atlantic at Azemmour.",
+      "Avec 555 km, le deuxième plus long fleuve du Maroc ; il prend sa source dans le Moyen Atlas et arrose le Tadla avant de se jeter dans l'Atlantique à Azemmour.",
+      "بطول 555 كلم، ثاني أطول أنهار المغرب؛ ينبع من الأطلس المتوسط ويسقي تادلة قبل أن يصب في المحيط الأطلسي عند أزمور.",
+      "Con 555 km, el segundo río más largo de Marruecos; nace en el Atlas Medio y riega el Tadla antes de desembocar en el Atlántico en Azemmour.",
+    ),
+  },
+  {
+    id: "poi-sebou",
+    name: L("Sebou", "Sebou", "وادي سبو", "Sebú"),
+    type: "river",
+    coordinates: { lat: 34.261, lng: -6.5802 },
+    region: "rabat-sale-kenitra",
+    description: L(
+      "The longest river in Morocco (496 km), it drains the Middle Atlas and the Gharb and reaches the sea at Kenitra.",
+      "Le plus long fleuve du Maroc (496 km), il draine le Moyen Atlas et le Gharb et atteint la mer à Kénitra.",
+      "أطول أنهار المغرب (496 كلم)، يستنزف الأطلس المتوسط والغرب ويصل إلى البحر عند القنيطرة.",
+      "El río más largo de Marruecos (496 km), drena el Atlas Medio y el Gharb y llega al mar en Kenitra.",
+    ),
+  },
+  {
+    id: "poi-moulouya",
+    name: L("Moulouya", "Moulouya", "وادي ملوية", "Muluya"),
+    type: "river",
+    coordinates: { lat: 35.0833, lng: -2.3333 },
+    region: "oriental",
+    description: L(
+      "A 520 km river rising in the High Atlas, crossing the eastern plateaus and flowing into the Mediterranean near Saidia.",
+      "Un fleuve de 520 km prenant sa source dans le Haut Atlas, traversant les hauts plateaux de l'est et se jetant dans la Méditerranée près de Saïdia.",
+      "نهر بطول 520 كلم ينبع من الأطلس الكبير، يعبر الهضاب الشرقية ويصب في البحر المتوسط قرب السعيدية.",
+      "Un río de 520 km que nace en el Alto Atlas, cruza los altos mesetas del este y desemboca en el Mediterráneo cerca de Saidia.",
+    ),
+  },
+  {
+    id: "poi-tensift",
+    name: L("Tensift", "Tensift", "وادي تانسيفت", "Tensift"),
+    type: "river",
+    coordinates: { lat: 31.5, lng: -9.2 },
+    region: "marrakech-safi",
+    description: L(
+      "The river of the Marrakech Haouz, 249 km long, which flows into the Atlantic north of Essaouira.",
+      "Le fleuve du Haouz marrakchi, long de 249 km, qui se jette dans l'Atlantique au nord d'Essaouira.",
+      "نهر الحوز المراكشي بطول 249 كلم، يصب في المحيط الأطلسي شمال الصويرة.",
+      "El río del Haouz de Marrakech, de 249 km, que desemboca en el Atlántico al norte de Esauira.",
+    ),
+  },
+  {
+    id: "poi-draa",
+    name: L("Drâa", "Drâa", "وادي درعة", "Draa"),
+    type: "river",
+    coordinates: { lat: 30.4167, lng: -5.9833 },
+    region: "draa-tafilalet",
+    description: L(
+      "At 1,100 km, the longest river in Morocco, born of the meltwaters of the High Atlas, which flows to the gates of the Atlantic after the Ouarzazate dam.",
+      "Avec 1 100 km, le plus long fleuve du Maroc, né de la fonte du Haut Atlas, qui coule jusqu'aux portes de l'Atlantique après le barrage d'Ouarzazate.",
+      "بطول 1100 كلم أطول أنهار المغرب، يولد من ذوبان ثلوج الأطلس الكبير، ويجري إلى أبواب المحيط الأطلسي بعد سد ورزازات.",
+      "Con 1.100 km, el río más largo de Marruecos, nacido del deshielo del Alto Atlas, que fluye hasta las puertas del Atlántico tras la presa de Uarzazat.",
+    ),
+  },
+  {
+    id: "poi-ziz",
+    name: L("Ziz", "Ziz", "وادي زيز", "Ziz"),
+    type: "river",
+    coordinates: { lat: 31.9167, lng: -4.4167 },
+    region: "draa-tafilalet",
+    description: L(
+      "The river of the Ziz gorges and the Tafilalet oases, which flows into the Sahara after the Hassan Addakhil dam.",
+      "Le fleuve des gorges du Ziz et des oasis du Tafilalet, qui se perd dans le Sahara après le barrage Hassan Addakhil.",
+      "نهر مضايق زيز وواحات تافيلالت، يضيع في الصحراء بعد سد الحسن الداخيل.",
+      "El río de las gargantas del Ziz y de los oasis de Tafilalet, que se pierde en el Sáhara tras la presa de Hassan Addakhil.",
+    ),
+  },
+  {
+    id: "poi-souss",
+    name: L("Souss", "Souss", "وادي سوس", "Souss"),
+    type: "river",
+    coordinates: { lat: 30.3167, lng: -9.5333 },
+    region: "souss-massa",
+    description: L(
+      "The river of the fertile Souss plain, which reaches the Atlantic at the gates of Agadir.",
+      "Le fleuve de la fertile plaine du Souss, qui atteint l'Atlantique aux portes d'Agadir.",
+      "نهر سهل سوس الخصب، يصل إلى المحيط الأطلسي على أبواب أكادير.",
+      "El río de la fértil llanura del Souss, que llega al Atlántico a las puertas de Agadir.",
+    ),
+  },
+  {
+    id: "poi-taghazout-beach",
+    name: L("Taghazout", "Taghazout", "تغازوت", "Taghazout"),
+    type: "beach",
+    coordinates: { lat: 30.55, lng: -9.7167 },
+    region: "souss-massa",
+    description: L(
+      "A famous surf spot and fishing village 20 km from Agadir, now developed around the Taghazout Bay resort.",
+      "Spot de surf réputé et village de pêcheurs à 20 km d'Agadir, aujourd'hui développé autour de la station Taghazout Bay.",
+      "قرية صيد ومكان شهير لركوب الأمواج على بعد 20 كلم من أكادير، طُورت حول محطة تغازوت باي.",
+      "Spot de surf famoso y pueblo pesquero a 20 km de Agadir, hoy desarrollado en torno a la estación Taghazout Bay.",
+    ),
+  },
+  {
+    id: "poi-legzira-beach",
+    name: L("Legzira", "Legzira", "الڭزيرة", "Legzira"),
+    type: "beach",
+    coordinates: { lat: 29.4333, lng: -10.1667 },
+    region: "guelmim-oued-noun",
+    description: L(
+      "A beach of monumental red sandstone arches between Tiznit and Sidi Ifni, one of Morocco's most spectacular landscapes.",
+      "Plage d'arches monumentales de grès rouge entre Tiznit et Sidi Ifni, l'un des paysages les plus spectaculaires du Maroc.",
+      "شاطئ بأقواس ضخمة من الحجر الرملي الأحمر بين تزنيت وسيدي إفني، من أروع مناظر المغرب.",
+      "Playa de arcos monumentales de arenisca roja entre Tiznit y Sidi Ifni, uno de los paisajes más espectaculares de Marruecos.",
+    ),
+  },
+  {
+    id: "poi-martil-beach",
+    name: L("Martil", "Martil", "مرتيل", "Martil"),
+    type: "beach",
+    coordinates: { lat: 35.6333, lng: -5.2833 },
+    region: "tanger-tetouan-al-hoceima",
+    description: L(
+      "The Mediterranean beach resort of Tetouan, on the estuary of the wadi Martil.",
+      "La station balnéaire méditerranéenne de Tétouan, sur l'estuaire de l'oued Martil.",
+      "محطة شاطئية متوسطية لتطوان، على مصب وادي مرتيل.",
+      "La estación balnearia mediterránea de Tetuán, en el estuario del uadi Martil.",
+    ),
+  },
+  {
+    id: "poi-sidi-kaouki-beach",
+    name: L("Sidi Kaouki", "Sidi Kaouki", "سيدي كاوكي", "Sidi Kaouki"),
+    type: "beach",
+    coordinates: { lat: 31.3667, lng: -9.8333 },
+    region: "marrakech-safi",
+    description: L(
+      "A wild beach 25 km south of Essaouira, popular with surfers and lovers of untouched nature.",
+      "Plage sauvage à 25 km au sud d'Essaouira, prisée des surfeurs et des amoureux de la nature préservée.",
+      "شاطئ وحشي على بعد 25 كلم جنوب الصويرة، يفضّله راكبو الأمواج وعشاق الطبيعة البكر.",
+      "Playa salvaje a 25 km al sur de Esauira, apreciada por surfistas y amantes de la naturaleza intacta.",
+    ),
+  },
+  {
+    id: "poi-dakhla-lagoon-beach",
+    name: L("Dakhla Lagoon", "Lagune de Dakhla", "بحيرة الداخلة", "Laguna de Dajla"),
+    type: "beach",
+    coordinates: { lat: 23.75, lng: -15.9 },
+    region: "dakhla-oued-ed-dahab",
+    description: L(
+      "A 40 km lagoon between desert and Atlantic, a world destination for kitesurf and wing foil.",
+      "Une lagune de 40 km entre désert et Atlantique, destination mondiale du kitesurf et du wing foil.",
+      "بحيرة بطول 40 كلم بين الصحراء والمحيط الأطلسي، وجهة عالمية للكيتبورد.",
+      "Una laguna de 40 km entre el desierto y el Atlántico, destino mundial del kitesurf.",
+    ),
+  },
+  {
+    id: "poi-mohammed-vi-museum",
+    name: L("Mohammed VI Museum of Modern and Contemporary Art", "Musée Mohammed VI d'art moderne et contemporain", "متحف محمد السادس للفن الحديث والمعاصر", "Museo Mohammed VI de Arte Moderno y Contemporáneo"),
+    type: "museum",
+    coordinates: { lat: 34.0167, lng: -6.8333 },
+    city: "rabat",
+    region: "rabat-sale-kenitra",
+    description: L(
+      "Inaugurated in 2014, the first national museum of modern and contemporary art in Rabat.",
+      "Inauguré en 2014, premier musée national d'art moderne et contemporain à Rabat.",
+      "دُشّن سنة 2014، وهو أول متحف وطني للفن الحديث والمعاصر بالرباط.",
+      "Inaugurado en 2014, primer museo nacional de arte moderno y contemporáneo de Rabat.",
+    ),
+  },
+  {
+    id: "poi-marrakech-museum",
+    name: L("Marrakech Museum", "Musée de Marrakech", "متحف مراكش", "Museo de Marrakech"),
+    type: "museum",
+    coordinates: { lat: 31.6325, lng: -7.989 },
+    city: "marrakech",
+    region: "marrakech-safi",
+    description: L(
+      "Installed in the Dar Menebhi palace at the heart of the medina, dedicated to Moroccan contemporary art.",
+      "Installé dans le palais Dar Menebhi au cœur de la médina, dédié à l'art contemporain marocain.",
+      "يضمّه قصر دار منبهي في قلب المدينة العتيقة، مخصّص للفن المعاصر المغربي.",
+      "Instalado en el palacio Dar Menebhi en el corazón de la medina, dedicado al arte contemporáneo marroquí.",
+    ),
+  },
+  {
+    id: "poi-dar-batha-museum",
+    name: L("Dar Batha Museum", "Musée Dar Batha", "متحف دار البطحاء", "Museo Dar Batha"),
+    type: "museum",
+    coordinates: { lat: 34.0367, lng: -4.9953 },
+    city: "fez",
+    region: "fes-meknes",
+    description: L(
+      "A Hispano-Moorish palace housing a superb collection of Fes pottery, zellige, woodwork and manuscripts.",
+      "Palais hispano-mauresque abritant une superbe collection de poterie de Fès, de zellige, de boiseries et de manuscrits.",
+      "قصر أندلسي مغربي يضم مجموعة رائعة من فخار فاس والزليج والخشب والمخطوطات.",
+      "Palacio hispano-morisco que alberga una superb colección de cerámica de Fez, zellige, madera y manuscritos.",
+    ),
+  },
+  {
+    id: "poi-kasbah-museum-tangier",
+    name: L("Kasbah Museum", "Musée de la Kasbah", "متحف القصبة", "Museo de la Kasbah"),
+    type: "museum",
+    coordinates: { lat: 35.7833, lng: -5.8167 },
+    city: "tangier",
+    region: "tanger-tetouan-al-hoceima",
+    description: L(
+      "The museum of Tangier's Kasbah, overlooking the Strait of Gibraltar, dedicated to the history of the city.",
+      "Le musée de la kasbah de Tanger, surplombant le détroit de Gibraltar, dédié à l'histoire de la ville.",
+      "متحف قصبة طنجة، يطل على مضيق جبل طارق، مخصّص لتاريخ المدينة.",
+      "El museo de la kasbah de Tánger, sobre el estrecho de Gibraltar, dedicado a la historia de la ciudad.",
+    ),
+  },
+  {
+    id: "poi-jewish-museum",
+    name: L("Museum of Moroccan Judaism", "Musée du judaïsme marocain", "متحف اليهودية المغربية", "Museo del Judaísmo Marroquí"),
+    type: "museum",
+    coordinates: { lat: 33.5833, lng: -7.6167 },
+    city: "casablanca",
+    region: "casablanca-settat",
+    description: L(
+      "The only Jewish museum in the Arab world, located in the Oasis district of Casablanca.",
+      "Le seul musée juif du monde arabe, situé dans le quartier de l'Oasis à Casablanca.",
+      "المتحف اليهودي الوحيد في العالم العربي، يقع بحي الواحة في الدار البيضاء.",
+      "El único museo judío del mundo árabe, situado en el barrio del Oasis de Casablanca.",
+    ),
+  },
+  {
+    id: "poi-jemaa-el-fna",
+    name: L("Jemaa el-Fna", "Jemaa el-Fna", "ساحة جامع الفنا", "Jemaa el-Fna"),
+    type: "cultural",
+    coordinates: { lat: 31.6258, lng: -7.9891 },
+    city: "marrakech",
+    region: "marrakech-safi",
+    description: L(
+      "The great square of Marrakech, a UNESCO masterpiece of the oral and intangible heritage of humanity.",
+      "La grande place de Marrakech, chef-d'œuvre du patrimoine oral et immatériel de l'humanité de l'UNESCO.",
+      "ساحة مراكش الكبرى، تحفة من التراث الشفهي وغير المادي للإنسانية باليونسكو.",
+      "La gran plaza de Marrakech, obra maestra del patrimonio oral e inmaterial de la humanidad de la Unesco.",
+    ),
+  },
+  {
+    id: "poi-hercules-caves",
+    name: L("Caves of Hercules", "Grottes d'Hercule", "كهوف هرقل", "Cuevas de Hércules"),
+    type: "historical",
+    coordinates: { lat: 35.7933, lng: -5.9167 },
+    city: "tangier",
+    region: "tanger-tetouan-al-hoceima",
+    description: L(
+      "Mythological caves at Cap Spartel, whose opening to the sea is said to resemble the map of Africa.",
+      "Grottes mythologiques au cap Spartel, dont l'ouverture sur la mer ressemblerait à la carte de l'Afrique.",
+      "كهوف أسطورية عند رأس سبارطيل، يُقال إن فتحتها على البحر تشبه خريطة إفريقيا.",
+      "Cuevas mitológicas en el cabo Espartel, cuya apertura al mar se dice que se asemeja al mapa de África.",
+    ),
+  },
+  {
+    id: "poi-sijilmassa",
+    name: L("Sijilmassa", "Sijilmassa", "سجلماسة", "Siyilmasa"),
+    type: "historical",
+    coordinates: { lat: 31.3167, lng: -4.3 },
+    region: "draa-tafilalet",
+    description: L(
+      "The ruins of the great medieval caravan city of the Tafilalet, terminus of the trans-Saharan gold routes.",
+      "Les ruines de la grande cité caravanière médiévale du Tafilalet, terminus des routes de l'or transsaharien.",
+      "أطلال المدينة القافلانية الكبرى في العصور الوسطى بتافيلالت، نهاية طرق الذهب عبر الصحراء.",
+      "Las ruinas de la gran ciudad caravenera medieval de Tafilalet, término de las rutas del oro transahariano.",
+    ),
+  },
+  {
+    id: "poi-moulay-idriss",
+    name: L("Moulay Idriss Zerhoun", "Moulay Idriss Zerhoun", "مولاي إدريس زرهون", "Mulay Idris Zerhún"),
+    type: "cultural",
+    coordinates: { lat: 34.0536, lng: -5.5203 },
+    region: "fes-meknes",
+    description: L(
+      "The holy city built around the tomb of Idris I, founder of the Moroccan state, on the hillside above Volubilis.",
+      "La ville sainte bâtie autour du tombeau d'Idris Ier, fondateur de l'État marocain, sur le flanc de la colline au-dessus de Volubilis.",
+      "المدينة المقدسة المبنية حول ضريح إدريس الأول، مؤسّس الدولة المغربية، على سفح التل فوق وليلي.",
+      "La ciudad santa construida en torno a la tumba de Idris I, fundador del Estado marroquí, en la ladera sobre Volubilis.",
+    ),
+  },
+];
+
+export default mapPOIs;
+export const mapPOIsList = mapPOIs;

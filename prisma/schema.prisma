@@ -1,0 +1,581 @@
+// MAROC — The Digital Kingdom | Prisma schema
+// Provider: PostgreSQL (production). For zero-setup local dev see schema.sqlite.prisma.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enumerations
+// ---------------------------------------------------------------------------
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  TRANSLATOR
+  REVIEWER
+}
+
+enum ContentStatus {
+  draft
+  review
+  published
+  archived
+}
+
+enum TranslationStatus {
+  draft
+  needs_review
+  reviewed
+  published
+}
+
+enum LanguageCode {
+  ar
+  tz
+  fr
+  en
+  es
+}
+
+enum SourceType {
+  official_government
+  official_institution
+  legal_publication
+  international_organization
+  academic
+  journalistic
+  other
+}
+
+enum Reliability {
+  high
+  medium
+  low
+  unverified
+}
+
+enum ContentType {
+  article
+  history
+  monarchy
+  government
+  institution
+  law
+  city
+  region
+  culture
+  cuisine
+  heritage
+  event
+  person
+  symbol
+  religion
+  amazigh
+}
+
+// ---------------------------------------------------------------------------
+// Authentication & authorization
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  passwordHash  String
+  role          Role     @default(EDITOR)
+  twoFactorSecret String?
+  twoFactorEnabled Boolean @default(false)
+  isActive      Boolean  @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  articles      Article[]
+  translations  Translation[] @relation("TranslatedBy")
+  reviewed      Translation[] @relation("ReviewedBy")
+  auditLogs     AuditLog[]
+  conversations AiConversation[]
+
+  @@index([email])
+}
+
+model Permission {
+  id        String @id @default(cuid())
+  name      String @unique
+  roles     Json
+}
+
+// ---------------------------------------------------------------------------
+// Internationalization
+// ---------------------------------------------------------------------------
+
+model Language {
+  code       LanguageCode @id
+  name       String
+  nativeName String
+  direction  String // "rtl" | "ltr"
+  isActive   Boolean     @default(true)
+  isDefault  Boolean     @default(false)
+  ordering   Int         @default(0)
+
+  translations Translation[]
+}
+
+model Translation {
+  id         String           @id @default(cuid())
+  key        String
+  languageId LanguageCode
+  value      String @db.Text
+  namespace  String           @default("common")
+  status     TranslationStatus @default(draft)
+  translatedBy String?
+  reviewedBy String?
+  articleId  String?
+  article    Article?         @relation(fields: [articleId], references: [id])
+  language   Language?        @relation(fields: [languageId], references: [code])
+  translator User?            @relation("TranslatedBy", fields: [translatedBy], references: [id])
+  reviewer   User?            @relation("ReviewedBy", fields: [reviewedBy], references: [id])
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  @@unique([key, languageId, namespace])
+  @@index([languageId])
+}
+
+// ---------------------------------------------------------------------------
+// Geography
+// ---------------------------------------------------------------------------
+
+model Region {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  code        String?  @unique
+  name        Json     // { en, fr, ar, tz, es }
+  capital     Json?
+  population  Int?
+  areaKm2     Float?
+  coordinates Json?    // { lat, lng } centroid
+  geometry    Json?    // GeoJSON polygon
+  order       Int      @default(0)
+  provinces   Province[]
+  cities      City[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Province {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      Json
+  regionId  String?
+  region    Region?  @relation(fields: [regionId], references: [id])
+  cities    City[]
+}
+
+model City {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        Json
+  population  Int?
+  coordinates Json // { lat, lng }
+  isCapital   Boolean  @default(false)
+  isMajor     Boolean  @default(false)
+  regionId    String?
+  region      Region?  @relation(fields: [regionId], references: [id])
+  provinceId  String?
+  province    Province? @relation(fields: [provinceId], references: [id])
+  timezone    String   @default("Africa/Casablanca")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([regionId])
+}
+
+// ---------------------------------------------------------------------------
+// History & monarchy
+// ---------------------------------------------------------------------------
+
+model HistoricalPeriod {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       Json
+  startYear   Int?
+  endYear     Int?
+  era         String?
+  summary     Json
+  content     Json?
+  figures     Json?    // important figures
+  cities      Json?
+  monuments   Json?
+  order       Int      @default(0)
+  events      HistoricalEvent[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model HistoricalEvent {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     Json
+  date      String?
+  year      Int?
+  summary   Json
+  content   Json?
+  periodId  String?
+  period    HistoricalPeriod? @relation(fields: [periodId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HistoricalFigure {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      Json
+  born      String?
+  died      String?
+  role      Json?
+  summary   Json
+  content   Json?
+  dynastyId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Dynasty {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      Json
+  startYear Int?
+  endYear   Int?
+  summary   Json
+  content   Json?
+  capitals  Json?
+  monarchs  RoyalFigure[]
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RoyalFigure {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        Json
+  reignStart  String?
+  reignEnd    String?
+  birthYear   Int?
+  deathYear   Int?
+  title       Json?
+  summary     Json
+  content     Json?
+  isCurrent   Boolean  @default(false)
+  dynastyId   String?
+  dynasty     Dynasty? @relation(fields: [dynastyId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Government & law
+// ---------------------------------------------------------------------------
+
+model Institution {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            Json
+  type            String // king | government | ministry | parliament | court | ...
+  constitutionalBasis Json?
+  responsibilities Json?
+  website         String?
+  content         Json?
+  parentInstitutionId String?
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model GovernmentMember {
+  id            String   @id @default(cuid())
+  name           Json
+  role           Json
+  institutionId  String?
+  startDate      String?
+  endDate        String?
+  isCurrent      Boolean  @default(true)
+  sourceUrl      String?
+  verifiedAt     DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Law {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         Json
+  category      String // civil | criminal | family | commercial | labor | administrative | constitutional | digital | consumer | education
+  officialTitle Json?
+  reference     String?
+  date          String?
+  status        String   @default("in_force") // in_force | repealed | amended
+  summary       Json
+  content       Json?
+  sourceUrl     String?
+  verifiedAt    DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([category])
+}
+
+// ---------------------------------------------------------------------------
+// Culture, heritage, cuisine
+// ---------------------------------------------------------------------------
+
+model HeritageSite {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  name          Json
+  category      String // world_heritage | intangible | natural | monument | archaeological | medina | kasbah
+  unescoStatus  Boolean  @default(false)
+  inscriptionYear Int?
+  location      Json?
+  coordinates   Json?
+  summary       Json
+  content       Json?
+  cityId        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([category])
+}
+
+model Recipe {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        Json
+  category    String // main | bread | breakfast | pastry | dessert | tea | soup | regional | festive | street | ingredient
+  region      Json?
+  origin      Json?
+  history     Json?
+  ingredients Json?
+  preparation Json?
+  occasions   Json?
+  variations  Json?
+  image       String?
+  cookingTime Int?
+  difficulty  String   @default("medium")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+}
+
+model CulturalSite {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      Json
+  type      String // museum | monument | religious | kasbah | medina | craft
+  coordinates Json?
+  cityId    String?
+  summary   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       Json
+  category    String // national | cultural | religious | festival | music | cinema | art | sport | regional
+  startDate   DateTime
+  endDate     DateTime?
+  location    Json?
+  cityId      String?
+  regionId    String?
+  description Json?
+  status      String   @default("scheduled") // scheduled | ongoing | completed | cancelled
+  sourceUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([startDate])
+}
+
+model Symbol {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      Json
+  type      String // flag | anthem | motto | coat_of_arms | holiday
+  summary   Json
+  content   Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Articles & CMS
+// ---------------------------------------------------------------------------
+
+model Category {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      Json
+  type      ContentType
+  articles  Article[]
+}
+
+model Article {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  title          Json
+  description    Json?
+  content        Json
+  excerpt        Json?
+  language       LanguageCode @default(en)
+  category       ContentType @default(article)
+  categoryId     String?
+  categoryRef    Category? @relation(fields: [categoryId], references: [id])
+  authorId       String?
+  author         User?    @relation(fields: [authorId], references: [id])
+  status         ContentStatus @default(draft)
+  featuredImage  String?
+  sourceId       String?
+  sourceUrl      String?
+  publishedAt    DateTime?
+  verifiedAt     DateTime?
+  reviewDueAt    DateTime?
+  tags           Json
+  views          Int      @default(0)
+  translations   Translation[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([category])
+}
+
+model Source {
+  id            String   @id @default(cuid())
+  title         String
+  institution   String?
+  url           String   @unique
+  type          SourceType @default(other)
+  reliability   Reliability @default(unverified)
+  publishedAt   DateTime?
+  accessedAt    DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  alt       Json?
+  caption   Json?
+  type      String   @default("image")
+  size      Int?
+  createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Weather cache & AI
+// ---------------------------------------------------------------------------
+
+model WeatherCache {
+  id        String   @id @default(cuid())
+  cityId    String?
+  slug      String   @unique
+  data      Json
+  fetchedAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
+model AiDocument {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  content      String   @db.Text
+  language     LanguageCode @default(en)
+  category     ContentType @default(article)
+  sourceId     String?
+  embedding    Unsupported("vector")?
+  verifiedAt   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+  @@index([language])
+}
+
+model AiConversation {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  title     String?
+  messages  AiMessage[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AiMessage {
+  id             String   @id @default(cuid())
+  conversationId String
+  conversation   AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String // user | assistant | system
+  content        String   @db.Text
+  sources        Json?
+  createdAt      DateTime @default(now())
+
+  @@index([conversationId])
+}
+
+// ---------------------------------------------------------------------------
+// Analytics & audit
+// ---------------------------------------------------------------------------
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  locale    LanguageCode @default(en)
+  referrer  String?
+  country   String?
+  createdAt DateTime @default(now())
+
+  @@index([path])
+  @@index([createdAt])
+}
+
+model SearchQuery {
+  id        String   @id @default(cuid())
+  query     String
+  locale    LanguageCode @default(en)
+  results   Int
+  createdAt DateTime @default(now())
+
+  @@index([query])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  entity    String
+  entityId  String?
+  metadata  Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([entity])
+}

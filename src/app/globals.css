@@ -1,0 +1,385 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===========================================================================
+   MAROC — The Digital Kingdom | Design tokens
+   =========================================================================== */
+
+@theme {
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, Cambria, "Times New Roman", serif;
+  --font-arabic: var(--font-naskh), "Noto Naskh Arabic", "Amiri", serif;
+  --font-tifinagh: var(--font-tifinagh), "Noto Sans Tifinagh", sans-serif;
+
+  /* Moroccan red — flag red */
+  --color-moroccan-red: #c1272d;
+  --color-moroccan-red-dark: #9c1d22;
+  --color-moroccan-red-light: #e05a5f;
+  --color-moroccan-red-soft: #f7e3e3;
+
+  /* Moroccan green — flag green */
+  --color-moroccan-green: #006233;
+  --color-moroccan-green-dark: #00451f;
+  --color-moroccan-green-light: #2c8a5b;
+  --color-moroccan-green-soft: #e1efe7;
+
+  /* Gold accents */
+  --color-gold: #c9a227;
+  --color-gold-dark: #a3831a;
+  --color-gold-light: #e8cf6b;
+  --color-gold-soft: #f8f0d8;
+
+  /* Neutral / editorial palette */
+  --color-sand-50: #fdfbf7;
+  --color-sand-100: #f8f4ec;
+  --color-sand-200: #efe8db;
+  --color-sand-300: #e2d8c6;
+  --color-sand-400: #c8bb9f;
+  --color-sand-500: #a89a7c;
+  --color-sand-600: #85785e;
+  --color-sand-700: #665b46;
+  --color-sand-800: #463f30;
+  --color-sand-900: #2c2820;
+  --color-sand-950: #1a1813;
+
+  /* Semantic tokens (light) */
+  --color-background: var(--color-sand-50);
+  --color-surface: #ffffff;
+  --color-surface-2: var(--color-sand-100);
+  --color-surface-3: var(--color-sand-200);
+  --color-foreground: #1c1b17;
+  --color-muted: var(--color-sand-600);
+  --color-border: var(--color-sand-200);
+  --color-strong-border: var(--color-sand-300);
+  --color-accent: var(--color-moroccan-red);
+  --color-accent-foreground: #ffffff;
+  --color-secondary: var(--color-moroccan-green);
+  --color-ring: var(--color-moroccan-red);
+
+  /* Map marker colors */
+  --color-pin-region: var(--color-moroccan-green);
+  --color-pin-city: var(--color-moroccan-red);
+  --color-pin-unesco: var(--color-gold);
+  --color-pin-historical: #7c5cbf;
+  --color-pin-mountain: #6b7f5e;
+  --color-pin-river: #2f7fa8;
+  --color-pin-beach: #28a0b8;
+  --color-pin-museum: #b8527a;
+  --color-pin-cultural: #c46a2a;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  --shadow-zellige: 0 1px 2px rgba(28, 27, 23, 0.06), 0 4px 16px rgba(28, 27, 23, 0.06);
+  --shadow-lift: 0 10px 40px -12px rgba(28, 27, 23, 0.22);
+  --shadow-glow-red: 0 0 0 1px rgba(193, 39, 45, 0.18), 0 12px 36px -14px rgba(193, 39, 45, 0.45);
+  --shadow-glow-green: 0 0 0 1px rgba(0, 98, 51, 0.18), 0 12px 36px -14px rgba(0, 98, 51, 0.4);
+
+  --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+.dark {
+  --color-background: #14130f;
+  --color-surface: #1c1b16;
+  --color-surface-2: #24221c;
+  --color-surface-3: #302d25;
+  --color-foreground: #f2ecdf;
+  --color-muted: #a89a7c;
+  --color-border: #332f26;
+  --color-strong-border: #443f33;
+  --color-accent: var(--color-moroccan-red-light);
+  --color-accent-foreground: #1a1813;
+  --color-secondary: var(--color-moroccan-green-light);
+  --color-ring: var(--color-moroccan-red-light);
+  --color-moroccan-red-soft: #3a201f;
+  --color-moroccan-green-soft: #15291f;
+  --color-gold-soft: #332c16;
+  --shadow-zellige: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 16px 50px -18px rgba(0, 0, 0, 0.75);
+}
+
+/* ===========================================================================
+   Base styles
+   =========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "kern", "liga", "calt";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html[dir="rtl"] body {
+    font-family: var(--font-arabic);
+  }
+
+  html[lang="zgh"] body {
+    font-family: var(--font-tifinagh);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  html[dir="rtl"] h1,
+  html[dir="rtl"] h2,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] h5,
+  html[dir="rtl"] h6 {
+    font-family: var(--font-arabic);
+    letter-spacing: 0;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-moroccan-red) 22%, transparent);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface-2);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-sand-300);
+    border-radius: 9999px;
+    border: 2px solid var(--color-surface-2);
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: var(--color-sand-700);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ===========================================================================
+   Component utilities
+   =========================================================================== */
+
+@layer components {
+  .container-page {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 81rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  .card-surface {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-zellige);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .card-surface:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+    border-color: var(--color-strong-border);
+  }
+
+  .text-gradient-flag {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-moroccan-red),
+      var(--color-gold) 48%,
+      var(--color-moroccan-green)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ring-gold {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-gold) 45%, transparent);
+  }
+
+  /* Subtle zellige-inspired geometric pattern */
+  .bg-zellige {
+    background-color: var(--color-surface);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23c1272d' stroke-opacity='0.07' stroke-width='1.2'%3E%3Cpath d='M32 2l8 8-8 8-8-8z'/%3E%3Cpath d='M32 46l8 8-8 8-8-8z'/%3E%3Cpath d='M2 32l8-8 8 8-8 8z'/%3E%3Cpath d='M46 32l8-8 8 8-8 8z'/%3E%3Cpath d='M12 12l6 6M52 52l-6-6M52 12l-6 6M12 52l6-6'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .bg-zellige-dense {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23c9a227' stroke-opacity='0.14' stroke-width='1'%3E%3Cpath d='M60 4l14 14-14 14-14-14z'/%3E%3Cpath d='M60 88l14 14-14 14-14-14z'/%3E%3Cpath d='M4 60l14-14 14 14-14 14z'/%3E%3Cpath d='M88 60l14-14 14 14-14 14z'/%3E%3Cpath d='M24 24l12 12M96 96l-12-12M96 24l-12 12M24 96l12-12'/%3E%3Ccircle cx='60' cy='60' r='10'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .bg-star-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 2l5.4 13.9L44 18l-11.5 8.1L36.5 42 24 33.4 11.5 42l3.9-15.9L4 18l14.6-2.1z' fill='%23c9a227' fill-opacity='0.09'/%3E%3C/svg%3E");
+  }
+
+  .divider-zellige {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--color-gold) 55%, transparent) 20%,
+      color-mix(in srgb, var(--color-moroccan-red) 45%, transparent) 50%,
+      color-mix(in srgb, var(--color-gold) 55%, transparent) 80%,
+      transparent
+    );
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-surface-2) 25%,
+      var(--color-surface-3) 37%,
+      var(--color-surface-2) 63%
+    );
+    background-size: 400% 100%;
+    animation: var(--animate-shimmer);
+    border-radius: var(--radius-md);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface-2);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1.5px;
+  }
+
+  .prose-moroc {
+    max-width: 72ch;
+    color: color-mix(in srgb, var(--color-foreground) 88%, transparent);
+    line-height: 1.8;
+  }
+  .prose-moroc p {
+    margin-bottom: 1.1em;
+  }
+  .prose-moroc strong {
+    color: var(--color-foreground);
+    font-weight: 700;
+  }
+  .prose-moroc h2 {
+    font-size: 1.5rem;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+  }
+  .prose-moroc h3 {
+    font-size: 1.15rem;
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+  }
+  .prose-moroc ul {
+    margin: 0.5em 0 1.2em;
+    padding-inline-start: 1.4em;
+    list-style: disc;
+  }
+  .prose-moroc li {
+    margin-bottom: 0.4em;
+  }
+  .prose-moroc blockquote {
+    border-inline-start: 3px solid var(--color-gold);
+    padding-inline-start: 1rem;
+    font-style: italic;
+    color: var(--color-muted);
+    margin: 1.2em 0;
+  }
+}
+
+/* Interactive leaflet elements need sensible defaults inside our theme */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: var(--color-surface-2);
+}
+.leaflet-control-zoom a,
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md);
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  box-shadow: var(--shadow-lift);
+}
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--color-muted);
+}
+.leaflet-bar {
+  border: 1px solid var(--color-border);
+}
