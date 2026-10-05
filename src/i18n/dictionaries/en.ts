@@ -1,6 +1,6 @@
 const en = {
   common: {
-    siteName: "MAROC",
+    siteName: "Kingdom of Morocco",
     siteTagline: "The Digital Kingdom",
     siteDescription:
       "Discover Morocco. Understand its history. Explore its culture.",
@@ -102,6 +102,7 @@ const en = {
     laws: "Laws",
     rights: "Rights",
     nationalSymbols: "National symbols",
+    moroccoTime: "Morocco time",
     religion: "Religion",
     amazigh: "Amazigh heritage",
     heritage: "Heritage",
@@ -211,6 +212,12 @@ const en = {
     archiveTitle: "Explore the archive",
     archiveSubtitle:
       "Every article, source and translation in the platform, in one place.",
+    flagTitle: "The flag of the Kingdom",
+    flagSubtitle:
+      "A red field bearing the green interlaced five-pointed star — the Seal of Solomon. The red has carried the Alaouite dynasty since the 17th century; the star was added on 17 November 1915 under Sultan Youssef.",
+    anthemTitle: "The national anthem",
+    anthemSubtitle:
+      "The Hymne Chérifien has been the Kingdom's anthem since independence. Listen to an instrumental rendition.",
   },
   categories: {
     history: "History",
@@ -466,6 +473,7 @@ const en = {
     legalTitle: "Legal",
     followTitle: "The Kingdom",
     madeWith: "Built with respect for Morocco's heritage.",
+    developedBy: "Developed by",
   },
   months: {
     january: "January",

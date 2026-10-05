@@ -84,6 +84,24 @@ export function Footer({ locale, dict }: FooterProps) {
             </Link>
             <span aria-hidden>•</span>
             <span>{dict.footer.madeWith}</span>
+            <span aria-hidden>•</span>
+            <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span>{dict.footer.developedBy}</span>
+              <a
+                href="mailto:abdelalizaid84@gmail.com"
+                className="link-underline font-semibold hover:text-[var(--color-foreground)]"
+              >
+                ZAID ABDELALI
+              </a>
+              <span aria-hidden>•</span>
+              <a
+                href="tel:+212695098517"
+                className="link-underline hover:text-[var(--color-foreground)]"
+                dir="ltr"
+              >
+                +212 6 95 09 85 17
+              </a>
+            </span>
           </p>
         </div>
       </div>

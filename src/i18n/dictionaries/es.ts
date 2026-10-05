@@ -2,7 +2,7 @@ import type { Dictionary } from "./en";
 
 const es: Dictionary = {
   common: {
-    siteName: "MAROC",
+    siteName: "Reino de Marruecos",
     siteTagline: "El Reino Digital",
     siteDescription: "Descubre Marruecos. Entiende su historia. Explora su cultura.",
     search: "Buscar",
@@ -103,6 +103,7 @@ const es: Dictionary = {
     laws: "Leyes",
     rights: "Derechos",
     nationalSymbols: "Símbolos nacionales",
+    moroccoTime: "Hora de Marruecos",
     religion: "Religión",
     amazigh: "Patrimonio amazigh",
     heritage: "Patrimonio",
@@ -211,6 +212,12 @@ const es: Dictionary = {
     archiveTitle: "Explorar el archivo",
     archiveSubtitle:
       "Cada artículo, fuente y traducción de la plataforma, en un solo lugar.",
+    flagTitle: "La bandera del Reino",
+    flagSubtitle:
+      "Un campo rojo con la estrella verde de cinco puntas entrelazada — el sello de Salomón. El rojo porta a la dinastía alauí desde el siglo XVII; la estrella se añadió el 17 de noviembre de 1915 bajo el sultán Youssef.",
+    anthemTitle: "El himno nacional",
+    anthemSubtitle:
+      "El Himno Chérifien es el himno del Reino desde la independencia. Escucha una versión instrumental.",
   },
   categories: {
     history: "Historia",
@@ -459,6 +466,7 @@ const es: Dictionary = {
     legalTitle: "Legal",
     followTitle: "El Reino",
     madeWith: "Hecho con respeto por el patrimonio marroquí.",
+    developedBy: "Desarrollado por",
   },
   months: {
     january: "Enero",

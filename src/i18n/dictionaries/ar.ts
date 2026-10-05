@@ -2,7 +2,7 @@ import type { Dictionary } from "./en";
 
 const ar: Dictionary = {
   common: {
-    siteName: "المغرب",
+    siteName: "المملكة المغربية",
     siteTagline: "المملكة الرقمية",
     siteDescription: "اكتشف المغرب. تعرّف على تاريخه. استكشف ثقافته.",
     search: "بحث",
@@ -103,6 +103,7 @@ const ar: Dictionary = {
     laws: "القوانين",
     rights: "الحقوق",
     nationalSymbols: "الرموز الوطنية",
+    moroccoTime: "توقيت المغرب",
     religion: "الدين",
     amazigh: "التراث الأمازيغي",
     heritage: "التراث",
@@ -207,6 +208,12 @@ const ar: Dictionary = {
     aiCta: "افتح المغرب AI",
     archiveTitle: "استكشف الأرشيف",
     archiveSubtitle: "كل مقال ومصدر وترجمة في المنصة، في مكان واحد.",
+    flagTitle: "علم المملكة",
+    flagSubtitle:
+      "حقل أحمر يحمل نجمة خضراء خماسية الأطراف متشابكة — خاتم سليمان. اللون الأحمر تحمله السلالة العلوية منذ القرن السابع عشر؛ أُضيفت النجمة في 17 نونبر 1915 في عهد السلطان يوسف.",
+    anthemTitle: "النشيد الوطني",
+    anthemSubtitle:
+      "النشيد الشريف هو نشيد المملكة منذ الاستقلال. استمع إلى نسخة موسيقية.",
   },
   categories: {
     history: "التاريخ",
@@ -452,6 +459,7 @@ const ar: Dictionary = {
     legalTitle: "قانوني",
     followTitle: "المملكة",
     madeWith: "صُنع باحترام لتراث المغرب.",
+    developedBy: "تم التطوير بواسطة",
   },
   months: {
     january: "يناير",

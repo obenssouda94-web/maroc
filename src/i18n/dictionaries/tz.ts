@@ -4,7 +4,7 @@ import type { Dictionary } from "./en";
 // UI dictionary. Some compound UI labels fall back to the source term.
 const tz: Dictionary = {
   common: {
-    siteName: "ⵎⴰⵔⵓⴽ",
+    siteName: "ⵜⴰⴳⵍⴷⵉⵜ ⵏ ⵍⵎⵖⵔⵉⴱ",
     siteTagline: "ⵜⴰⴳⵍⴷⵉⵜ ⵜⴰⵏⴻⵎⵍⴰⵏⵜ",
     siteDescription:
       "ⵙⵙⴻⵏⵜ ⵍⵎⵖⵔⵉⴱ. ⵀⴻⵙⵙⴻⴷ ⴰⵎⵣⵡⴰⵔⵓ. ⵉⵎⵉⵔ ⴰⵙⴰⵖⵍⵓⵍ.",
@@ -106,6 +106,7 @@ const tz: Dictionary = {
     laws: "ⵉⵙⴻⵇⵇⴰⵏⴻⵏ",
     rights: "ⵉⵣⴻⵔⴼⴰⵏ",
     nationalSymbols: "ⵉⵣⵓⵎⴰⵏ ⵏ ⵡⴰⵏⴽⴰ",
+    moroccoTime: "ⵜⴰⵎⴻⵏⵣⵉⵖⵜ ⵏ ⵍⵎⵖⵔⵉⴱ",
     religion: "ⴰⵙⴻⴽⴽⵉⵏ",
     amazigh: "ⴰⵎⴻⵏⵅⵉ ⴰⵎⴰⵣⵉⵖ",
     heritage: "ⴰⵎⴻⵏⵅⵉ",
@@ -212,6 +213,12 @@ const tz: Dictionary = {
     archiveTitle: "ⵉⵎⵉⵔ ⵓⵙⴻⴽⵏⴰⵔⵉ",
     archiveSubtitle:
       "ⴽⵓⵍⵍⵓ ⵉⵎⲁⵙⴰⵍⴻⵏ, ⵉⵙⴰⵍⴻⵏ ⴷ ⵜⵉⵙⵙⵓⵎⴰⵍⵉⵏ ⴳ ⵜⵎⴻⵏⵣⵉⵖⵜ, ⴳ ⵓⵏⴻⴽⴰⵏ.",
+    flagTitle: "ⴰⵙⴻⵍⵍⵓ ⵏ ⵜⴰⴳⵍⴷⵉⵜ",
+    flagSubtitle:
+      "ⴰⵎⴰⵍⵓ ⴰⵣⴻⴳⴳⴰⵖ ⴳⵉⵙ ⵜⴰⵙⵏⵜⴰⵍⵜ ⵜⴰⵣⴻⴳⴳⴰⵖⵜ ⵏ ⵓⵎⴰⵏⵉ — ⴰⵙⵏⴻⵎⵎⵉⵍ ⵏ ⵙⵍⴰⵎⴰⵏ.",
+    anthemTitle: "ⴰⵙⵏⴻⵎⵎⵉⵍ ⴰⵏⴰⵎⵎⴰⵏ",
+    anthemSubtitle:
+      "ⵀⵉⵎⵏ ⵛⵔⵉⴼⵉⴻⵏ ⵉⴳⴰ ⴰⵙⵏⴻⵎⵎⵉⵍ ⵏ ⵜⴰⴳⵍⴷⵉⵜ ⵙⴻⴳ ⵓⵙⵎⵎⴻⵔ. ⵙⵎⴻⵔ ⵜⴰⵍⵙⵍⴰⵎⵜ ⵏ ⵉⵎⴻⵙⵍⴰⵢⴻⵏ.",
   },
   categories: {
     history: "ⴰⵎⵣⵡⴰⵔⵓ",
@@ -461,6 +468,7 @@ const tz: Dictionary = {
     legalTitle: "ⴰⵎⴰⵏⴻⵙⴰⵏ",
     followTitle: "ⵜⴰⴳⵍⴷⵉⵜ",
     madeWith: "ⵉⵜⵜⵡⴰⵙⵏⵓⵍⴼⴻⵏ ⵙ ⵓⵙⵎⵎⴻⵇⵇⵕⴰⵏ ⵉ ⵓⵎⴻⵏⵅⵉ ⴰⵎⴰⵣⵉⵖ.",
+    developedBy: "ⵉⵜⵜⵡⴰⵙⵏⵓⵍⴼⴻⵏ ⵙ",
   },
   months: {
     january: "ⵉⵏⴰⵢⵔ",

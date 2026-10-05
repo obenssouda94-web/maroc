@@ -5,6 +5,7 @@ import { defaultLocale } from "@/i18n/config";
 import { localePath, localized, formatDate } from "@/lib/utils";
 import type { Locale } from "@/types";
 import { Hero } from "@/components/sections/hero";
+import { SymbolsAnthem } from "@/components/sections/symbols-anthem";
 import { StatsGrid } from "@/components/sections/stats-grid";
 import { GatewayGrid } from "@/components/sections/gateway-grid";
 import { historicalPeriods } from "@/data/history";
@@ -43,6 +44,7 @@ export default async function HomePage({
   return (
     <>
       <Hero locale={locale} dict={dict} />
+      <SymbolsAnthem locale={locale} dict={dict} />
       <StatsGrid dict={dict} />
       <GatewayGrid locale={locale} dict={dict} />
 

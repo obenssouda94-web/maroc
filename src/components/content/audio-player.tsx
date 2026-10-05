@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Music2, Play, Pause, RotateCcw } from "lucide-react";
+import { Pause, Play, RotateCcw, Music2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { restartAnthem, toggleAnthem, useAnthem } from "@/lib/anthem";
 
 interface AudioPlayerProps {
   src: string;
@@ -12,63 +12,13 @@ interface AudioPlayerProps {
 }
 
 /**
- * Accessible audio player built on the native <audio> element.
- * Renders nothing until the asset is reachable, so a missing file
- * never produces a broken control on the page.
+ * Accessible anthem player. Binds to the shared anthem store, so it stays in
+ * sync with the header control — one underlying stream, shared play/pause.
+ * Renders nothing until the asset is reachable, so a missing file never
+ * produces a broken control on the page.
  */
 export function AudioPlayer({ src, label, hint, className }: AudioPlayerProps) {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [available, setAvailable] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const [time, setTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    // Non-null alias so listeners (closures) keep the narrowed type.
-    const el: HTMLAudioElement = audio;
-
-    function onLoaded() {
-      setAvailable(Number.isFinite(el.duration) && el.duration > 0);
-      setDuration(el.duration || 0);
-    }
-    function onTime() {
-      setTime(el.currentTime);
-    }
-    function onEnd() {
-      setPlaying(false);
-      setTime(0);
-    }
-
-    el.addEventListener("loadedmetadata", onLoaded);
-    el.addEventListener("timeupdate", onTime);
-    el.addEventListener("ended", onEnd);
-    return () => {
-      el.removeEventListener("loadedmetadata", onLoaded);
-      el.removeEventListener("timeupdate", onTime);
-      el.removeEventListener("ended", onEnd);
-    };
-  }, []);
-
-  function toggle() {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (audio.paused) {
-      void audio.play();
-      setPlaying(true);
-    } else {
-      audio.pause();
-      setPlaying(false);
-    }
-  }
-
-  function restart() {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.currentTime = 0;
-    setTime(0);
-  }
+  const { available, playing, time, duration } = useAnthem(src);
 
   if (!available) return null;
 
@@ -81,10 +31,6 @@ export function AudioPlayer({ src, label, hint, className }: AudioPlayerProps) {
         className,
       )}
     >
-      <audio ref={audioRef} src={src} preload="metadata" className="sr-only">
-        {hint && <track kind="captions" />}
-      </audio>
-
       <div className="flex shrink-0 items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-moroccan-green-soft)] text-[var(--color-moroccan-green)]">
           <Music2 className="h-5 w-5" aria-hidden />
@@ -102,7 +48,7 @@ export function AudioPlayer({ src, label, hint, className }: AudioPlayerProps) {
       <div className="flex flex-1 items-center gap-3">
         <button
           type="button"
-          onClick={toggle}
+          onClick={() => toggleAnthem(src)}
           aria-label={playing ? "Pause" : "Play"}
           className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--color-moroccan-green)] text-white transition-colors hover:bg-[var(--color-moroccan-green-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
         >
@@ -114,7 +60,7 @@ export function AudioPlayer({ src, label, hint, className }: AudioPlayerProps) {
         </button>
         <button
           type="button"
-          onClick={restart}
+          onClick={restartAnthem}
           aria-label="Restart"
           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--color-strong-border)] text-[var(--color-muted)] transition-colors hover:bg-[var(--color-surface-2)] hover:text-[var(--color-foreground)]"
         >

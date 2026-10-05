@@ -17,13 +17,15 @@ export function ThemeToggle({ className, labels }: ThemeToggleProps) {
   useEffect(() => setMounted(true), []);
 
   const isDark = resolvedTheme === "dark";
+  const lightLabel = labels?.light ?? "Switch to light mode";
+  const darkLabel = labels?.dark ?? "Switch to dark mode";
 
   return (
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? labels?.light ?? "Switch to light mode" : labels?.dark ?? "Switch to dark mode"}
-      title={isDark ? labels?.light ?? "Light mode" : labels?.dark ?? "Dark mode"}
+      aria-label={mounted ? (isDark ? lightLabel : darkLabel) : "Toggle theme"}
+      title={mounted ? (isDark ? lightLabel : darkLabel) : "Theme"}
       className={cn(
         "inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-strong-border)] bg-[var(--color-surface)] text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]",
         className,

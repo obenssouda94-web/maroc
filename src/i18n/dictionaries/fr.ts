@@ -2,7 +2,7 @@ import type { Dictionary } from "./en";
 
 const fr: Dictionary = {
   common: {
-    siteName: "MAROC",
+    siteName: "Royaume du Maroc",
     siteTagline: "Le Royaume Numérique",
     siteDescription:
       "Découvrez le Maroc. Comprenez son histoire. Explorez sa culture.",
@@ -104,6 +104,7 @@ const fr: Dictionary = {
     laws: "Lois",
     rights: "Droits",
     nationalSymbols: "Emblèmes nationaux",
+    moroccoTime: "Heure du Maroc",
     religion: "Religion",
     amazigh: "Patrimoine amazigh",
     heritage: "Patrimoine",
@@ -214,6 +215,12 @@ const fr: Dictionary = {
     archiveTitle: "Explorer les archives",
     archiveSubtitle:
       "Tous les articles, sources et traductions de la plateforme, au même endroit.",
+    flagTitle: "Le drapeau du Royaume",
+    flagSubtitle:
+      "Un champ rouge portant l'étoile verte à cinq branches entrelacée — le sceau de Salomon. Le rouge porte la dynastie alaouite depuis le XVIIe siècle ; l'étoile fut ajoutée le 17 novembre 1915 sous le sultan Youssef.",
+    anthemTitle: "L'hymne national",
+    anthemSubtitle:
+      "L'Hymne Chérifien est l'hymne du Royaume depuis l'indépendance. Écoutez une version instrumentale.",
   },
   categories: {
     history: "Histoire",
@@ -469,6 +476,7 @@ const fr: Dictionary = {
     legalTitle: "Légal",
     followTitle: "Le Royaume",
     madeWith: "Conçu dans le respect du patrimoine marocain.",
+    developedBy: "Développé par",
   },
   months: {
     january: "Janvier",

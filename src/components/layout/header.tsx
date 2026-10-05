@@ -10,7 +10,9 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { getNavGroups } from "@/lib/navigation";
 import { LanguageSelector } from "@/components/layout/language-selector";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { MoroccoWordmark } from "@/components/layout/wordmark";
+import { MoroccanFlag } from "@/components/brand/moroccan-flag";
+import { MoroccoClock } from "@/components/layout/morocco-clock";
+import { HeaderAnthem } from "@/components/layout/header-anthem";
 import { MobileNav } from "@/components/layout/mobile-nav";
 
 interface HeaderProps {
@@ -62,7 +64,9 @@ export function Header({ locale, dict }: HeaderProps) {
           className="flex shrink-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
           aria-label={dict.common.siteName}
         >
-          <MoroccoWordmark className="h-9 w-9" />
+          <span className="flex h-10 w-[60px] shrink-0 items-center overflow-hidden rounded-md shadow-sm ring-1 ring-inset ring-black/10">
+            <MoroccanFlag className="h-full w-full" />
+          </span>
           <span className="flex flex-col leading-none">
             <span className="font-serif text-lg font-bold tracking-tight">
               {dict.common.siteName}
@@ -133,11 +137,19 @@ export function Header({ locale, dict }: HeaderProps) {
             <Sparkles className="h-3.5 w-3.5" aria-hidden />
             {dict.common.askAI}
           </Link>
+          <HeaderAnthem
+            src="/audio/hymne-cherifien.mp3"
+            label={dict.page.anthemListenTitle}
+          />
           <ThemeToggle
             className="hidden sm:inline-flex"
             labels={{ light: dict.common.lightMode, dark: dict.common.darkMode }}
           />
           <LanguageSelector currentLocale={locale} className="hidden sm:block" />
+          <MoroccoClock
+            label={dict.common.moroccoTime}
+            className="hidden md:inline-flex"
+          />
           <button
             type="button"
             onClick={() => setMobileOpen(true)}

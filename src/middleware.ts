@@ -1,7 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { defaultLocale, isLocale, locales } from "@/i18n/config";
 
-const PUBLIC_FILE = /\.(?!svg|png|jpg|jpeg|gif|webp|ico|txt|xml|webmanifest|js|css|map).+$/;
+// Anything that looks like a file (dot in the last segment) is a static asset
+// served from /public: uploads, audio, favicon… These must never receive a
+// locale prefix, otherwise e.g. /uploads/foo.jpg is redirected to /en/uploads/foo.jpg and 404s.
+const PUBLIC_FILE = /\.[^/]+$/;
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

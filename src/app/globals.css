@@ -103,6 +103,20 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
+  /* Moroccan flag demonstration: gentle cloth oscillation + travelling
+     specular sweep, as if the flag were flying on a mast. */
+  @keyframes flag-wave {
+    0%, 100% {
+      transform: perspective(1100px) rotateY(-9deg) rotateX(1.5deg) skewY(-0.6deg);
+    }
+    50% {
+      transform: perspective(1100px) rotateY(9deg) rotateX(-1.5deg) skewY(0.6deg);
+    }
+  }
+  @keyframes flag-sweep {
+    0% { background-position: 160% 0; }
+    100% { background-position: -60% 0; }
+  }
 }
 
 .dark {
@@ -284,6 +298,37 @@
   }
   .dark .bg-star-pattern {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 2l5.4 13.9L44 18l-11.5 8.1L36.5 42 24 33.4 11.5 42l3.9-15.9L4 18l14.6-2.1z' fill='%23e8cf6b' fill-opacity='0.14'/%3E%3C/svg%3E");
+  }
+
+  /* Moroccan flag demonstration ------------------------------------------- */
+  /* Cloth-like oscillation of the flag, pinned at the hoist side. */
+  .flag-wave {
+    transform-origin: left center;
+    animation: flag-wave 8s ease-in-out infinite;
+    will-change: transform;
+  }
+  html[dir="rtl"] .flag-wave {
+    transform-origin: right center;
+  }
+  /* Travelling specular highlight that reads as light moving over fabric. */
+  .flag-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+  .flag-sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+      100deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.32) 50%,
+      transparent 62%
+    );
+    background-size: 260% 100%;
+    animation: flag-sweep 7s ease-in-out infinite;
+    mix-blend-mode: soft-light;
   }
 
   .divider-zellige {
